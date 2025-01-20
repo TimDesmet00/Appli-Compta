@@ -14,7 +14,7 @@
     <body>
         <header>
             
-            <h1>Appli-Compta</h1>
+            <h1>TimToCompta</h1>
             
         </header>
         <main>
