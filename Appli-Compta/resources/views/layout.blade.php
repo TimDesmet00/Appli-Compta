@@ -14,7 +14,7 @@
     <body>
         <header>
             
-            <h1>TimToCompta</h1>
+            
             
         </header>
         <main>

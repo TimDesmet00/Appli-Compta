@@ -1,3 +1,9 @@
 @import "vendor/normalize";
 
+@import "components/accueil";
 @import "components/footer";
+
+
+body {
+    background-color: bisque;
+}
