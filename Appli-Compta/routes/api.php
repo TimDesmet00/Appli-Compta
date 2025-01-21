@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\APINodeJSController as ApiController; // Importer le contrôleur APINodeJSController
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Ajouter une route pour appeler l'API Node.js
+Route::get('/call-node-api', [ApiController::class, 'callNodeApi']);
