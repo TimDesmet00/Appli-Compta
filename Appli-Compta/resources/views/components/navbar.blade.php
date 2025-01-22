@@ -1,6 +1,6 @@
 <nav class="navbar">
-    <a href="{{ route('') }}">Accueil</a>
-    <a href="{{ route('') }}">Ajoutez</a>
+    <a href="{{ route('accueil.index') }}">Accueil</a>
+    <a >Ajoutez</a>
     @if(Auth::check())
         <a href="{{ route('user.show', ['id' => Auth::id()]) }}">Profil</a>
     @endif
@@ -12,8 +12,7 @@
                 @csrf
             </form>
         @else
-            <button class="btn connection" onclick="location.href='{{ route('user.login') }}'">Se Connecter</button>
-            <!-- <a href="{{ route('user.login') }}" class="btn btn1 connection">Se Connecter</a> -->
+            <button class="btn connection" onclick="location.href='#'">Se Connecter</button>
         @endif
         
     </div>
