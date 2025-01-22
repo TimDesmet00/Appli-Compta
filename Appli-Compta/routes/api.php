@@ -18,5 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Ajouter une route pour appeler l'API Node.js
-Route::get('/call-node-api', [ApiController::class, 'callNodeApi']);
+// Ajouter une route pour appeler l'API Node.js client
+Route::post('/client/add', [APINodeJSController::class, 'createClient']);
+Route::get('/client/getall', [APINodeJSController::class, 'getAllClients']);
+Route::get('/client/getone/{id}', [APINodeJSController::class, 'getClientById']);
+Route::patch('/client/update/{id}', [APINodeJSController::class, 'updateClient']);
+Route::delete('/client/delete/{id}', [APINodeJSController::class, 'deleteClient']);

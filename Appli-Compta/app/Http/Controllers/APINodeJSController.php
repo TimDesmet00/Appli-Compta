@@ -4,17 +4,61 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class ApiController extends Controller
+class APINodeJSController extends Controller
 {
-    public function callNodeApi()
+    public function createClient(Request $request)
     {
-        // URL de l'API Node.js
-        $url = env('NODE_API_URL') . '/api/test';
+        $url = env('NODE_API_URL') . '/client/add';
+        $response = Http::post($url, $request->all());
 
-        // Faire une requête GET
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function getAllClients()
+    {
+        $url = env('NODE_API_URL') . '/client/getall';
         $response = Http::get($url);
 
-        // Vérifier la réponse et renvoyer les données
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function getClientById($id)
+    {
+        $url = env('NODE_API_URL') . "/client/getone/{$id}";
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function updateClient(Request $request, $id)
+    {
+        $url = env('NODE_API_URL') . "/client/update/{$id}";
+        $response = Http::patch($url, $request->all());
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function deleteClient($id)
+    {
+        $url = env('NODE_API_URL') . "/client/delete/{$id}";
+        $response = Http::delete($url);
+
         if ($response->successful()) {
             return $response->json();
         } else {
