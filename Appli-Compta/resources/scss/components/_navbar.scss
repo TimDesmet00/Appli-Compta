@@ -1,5 +1,6 @@
 .navbar
 {
+    margin-top: 1em;
     display : flex;
     justify-content: space-evenly;
     align-items: center;
@@ -7,14 +8,14 @@
     height: 80px;
     position: relative;
     bottom: 32px;
-    background-color: #314455;    
+    background-color: bisque;    
     a
     {
         text-decoration: none;
-        color: white;
+        color: black;
         &:hover
         {
-            color: #97AABD;
+            color: blueviolet;
         }
     }
 
