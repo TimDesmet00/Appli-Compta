@@ -29,37 +29,37 @@
         fetch('/api/client/getall')
             .then(response => {
                 console.log('Response:', response); // Log the response object
-                return response.text(); // Get the response as text
+                return response.json(); // Parse the response as JSON
             })
-            .then(text => {
-                console.log('Response text:', text); // Log the response text
-                try {
-                    const data = JSON.parse(text); // Parse the text as JSON
+            .then(data => {
+                console.log('Response data:', data); // Log the response data
+                if (data.status === 'success' && data.data && data.data.clients) {
+                    const clients = data.data.clients;
                     const tableBody = document.querySelector('#client-table tbody');
-                    data.forEach(client => {
+                    clients.forEach(client => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${client.id}</td>
+                            <td>${client._id}</td>
                             <td>${client.nom}</td>
-                            <td>${client.adresse}</td>
+                            <td>${client.rue}</td>
                             <td>${client.numero}</td>
                             <td>${client.cp}</td>
                             <td>${client.ville}</td>
                             <td>${client.pays}</td>
                             <td>${client.tva}</td>
-                            <td>${client.tel}</td>
-                            <td>${client.mail}</td>
+                            <td>${client.telephone}</td>
+                            <td>${client.email}</td>
                             <td>${client.banque}</td>
-                            <td>${client.factures}</td>
+                            <td>${client.factures.length}</td>
                         `;
                         tableBody.appendChild(row);
                     });
-                } catch (error) {
-                    console.error('Erreur de parsing JSON:', error);
+                } else {
+                    console.error('Erreur: données invalides');
                 }
             })
             .catch(error => console.error('Erreur:', error));
-        });
+    });
     </script>
     
 @endsection

@@ -20,6 +20,7 @@ class APINodeJSController extends Controller
 
     public function getAllClients()
     {
+      
         $url = env('NODE_API_URL') . '/client/getall';
         $response = Http::get($url);
 
