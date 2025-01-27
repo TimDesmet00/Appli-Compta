@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\APINodeJSController as ApiController; // Importer le contrôleur APINodeJSController
+use App\Http\Controllers\APINodeJSController; // Importer le contrôleur APINodeJSController
 /*
 |--------------------------------------------------------------------------
 | API Routes

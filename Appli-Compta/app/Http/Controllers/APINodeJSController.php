@@ -24,7 +24,7 @@ class APINodeJSController extends Controller
         $response = Http::get($url);
 
         if ($response->successful()) {
-            return $response->json();
+            return $response->json($response->json());
         } else {
             return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
         }

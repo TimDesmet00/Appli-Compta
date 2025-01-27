@@ -1,6 +1,6 @@
 <nav class="navbar">
     <a href="{{ route('accueil.index') }}">Accueil</a>
-    <a >Ajoutez</a>
+    <a href="{{ url('/clients') }}">Client</a>
     @if(Auth::check())
         <a href="{{ route('user.show', ['id' => Auth::id()]) }}">Profil</a>
     @endif

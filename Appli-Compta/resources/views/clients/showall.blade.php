@@ -25,10 +25,16 @@
     </table>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/api/client/getall')
-                .then(response => response.json())
-                .then(data => {
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/client/getall')
+            .then(response => {
+                console.log('Response:', response); // Log the response object
+                return response.text(); // Get the response as text
+            })
+            .then(text => {
+                console.log('Response text:', text); // Log the response text
+                try {
+                    const data = JSON.parse(text); // Parse the text as JSON
                     const tableBody = document.querySelector('#client-table tbody');
                     data.forEach(client => {
                         const row = document.createElement('tr');
@@ -48,8 +54,12 @@
                         `;
                         tableBody.appendChild(row);
                     });
-                })
-                .catch(error => console.error('Erreur:', error));
+                } catch (error) {
+                    console.error('Erreur de parsing JSON:', error);
+                }
+            })
+            .catch(error => console.error('Erreur:', error));
         });
     </script>
+    
 @endsection
