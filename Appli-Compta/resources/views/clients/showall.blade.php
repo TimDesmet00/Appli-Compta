@@ -29,7 +29,14 @@
         fetch('/api/client/getall')
             .then(response => {
                 console.log('Response:', response); // Log the response object
-                return response.json(); // Parse the response as JSON
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new TypeError('Response is not JSON');
+                }
+                return response.json(); // Get the response as JSON
             })
             .then(data => {
                 console.log('Response data:', data); // Log the response data
