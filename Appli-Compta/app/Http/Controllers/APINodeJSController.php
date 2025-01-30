@@ -24,6 +24,8 @@ class APINodeJSController extends Controller
         $url = env('NODE_API_URL') . '/client/getall';
         $response = Http::get($url);
 
+        Log::info('API Node.js Response:', ['response' => $response->body()]);
+
         if ($response->successful()) {
             return $response->json($response->json());
         } else {
