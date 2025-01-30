@@ -5,7 +5,6 @@
     <table id="client-table">
         <thead>
             <tr>
-                <th>id</th>
                 <th>Nom</th>
                 <th>Adresse</th>
                 <th>N°</th>
@@ -46,7 +45,6 @@
                     clients.forEach(client => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${client._id}</td>
                             <td>${client.nom}</td>
                             <td>${client.rue}</td>
                             <td>${client.numero}</td>
