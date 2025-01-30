@@ -1,0 +1,14 @@
+#client-table {
+    margin: auto;
+    width: 90%;
+    border-collapse: collapse;
+
+    th,td {
+        border: 2px solid darkred;
+        color: blueviolet
+    }
+
+    // th {
+    //     text-shadow: 1px 1px 2px black;
+    // }
+};
