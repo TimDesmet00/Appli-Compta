@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log; 
 
 class APINodeJSController extends Controller
 {
@@ -27,7 +28,8 @@ class APINodeJSController extends Controller
         Log::info('API Node.js Response:', ['response' => $response->body()]);
 
         if ($response->successful()) {
-            return $response->json($response->json());
+            $decodedResponse = json_decode($response->body(), true); // Décoder la réponse JSON une fois de plus
+            return response()->json($decodedResponse);
         } else {
             return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
         }

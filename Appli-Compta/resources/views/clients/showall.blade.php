@@ -42,6 +42,7 @@
                 if (data.status === 'success' && data.data && data.data.clients) {
                     const clients = data.data.clients;
                     const tableBody = document.querySelector('#client-table tbody');
+                    tableBody.innerHTML = '';
                     clients.forEach(client => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
@@ -55,7 +56,7 @@
                             <td>${client.telephone}</td>
                             <td>${client.email}</td>
                             <td>${client.banque}</td>
-                            <td>${client.factures.length}</td>
+                            <td>${client.invoices.length}</td>
                         `;
                         tableBody.appendChild(row);
                     });
