@@ -1,0 +1,16 @@
+.btn
+{
+    border-radius: 3px;
+    background-color: blueviolet;
+    border: 1px solid bisque;
+    color: bisque;
+    box-shadow: 2px 2px 2px darkred;
+    transition: 1.2s;
+    margin-top: 0.5em;
+    padding: 0.3em;
+    &:hover
+    {
+        box-shadow: 5px 5px 5px #000;
+    }
+    
+}
