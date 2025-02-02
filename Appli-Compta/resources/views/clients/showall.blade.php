@@ -2,6 +2,7 @@
 
 @section ('content')
     <h1>Client</h1>
+    <button class="btn" onclick="location.href='{{ route('clients.new') }}'">nouveau client</button>
     <table id="client-table">
         <thead>
             <tr>
