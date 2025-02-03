@@ -5,7 +5,7 @@
     <h1>Ajouter un client</h1>
 </div>
 <div class="container">
-    <form action="/client/add" method="post">
+    <form action="{{ url('/api/client/add') }}" method="post">
         @csrf
         <div class="form-group">
             <div>
@@ -21,8 +21,8 @@
         
         <div class="form-group">
             <div>
-                <label for="adress">Rue</label>
-                <input type="text" name="adress" id="adress" required>
+                <label for="address">Rue</label>
+                <input type="text" name="adress" id="address" required>
             </div>
             <div>
                 <label for="number">N°</label>

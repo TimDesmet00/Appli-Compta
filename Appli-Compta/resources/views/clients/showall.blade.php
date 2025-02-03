@@ -3,7 +3,7 @@
 @section ('content')
     <h1>Client</h1>
     <div class="btn-pos">
-        <button class="btn" onclick="location.href='{{ route('clients.new') }}'">nouveau client</button>
+        <button class="btn" onclick="location.href='{{ route('client.new') }}'">nouveau client</button>
     </div>
     
     <table id="client-table">

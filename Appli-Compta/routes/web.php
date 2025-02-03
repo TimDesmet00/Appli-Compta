@@ -17,5 +17,5 @@ use App\Http\Controllers\AccueilController; // Importer le contrôleur AccueilCo
 Route::get('/', [AccueilController::class, 'index'])->name('accueil.index');
 
 Route::get('/clients', function (){ return view('clients.showall'); })->name('clients.showall');
-route::get('/clients/new', function (){ return view('clients.new');})->name('clients.new');
+route::get('/client/new', function (){ return view('clients.new');})->name('client.new');
 

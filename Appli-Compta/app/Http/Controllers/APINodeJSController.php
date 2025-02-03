@@ -9,6 +9,8 @@ class APINodeJSController extends Controller
 {
     public function createClient(Request $request)
     {
+        log::info('request received:', $request->all());
+
         $url = env('NODE_API_URL') . '/client/add';
         $response = Http::post($url, $request->all());
 
