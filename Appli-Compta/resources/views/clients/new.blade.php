@@ -22,7 +22,7 @@
         <div class="form-group">
             <div>
                 <label for="address">Rue</label>
-                <input type="text" name="adress" id="address" required>
+                <input type="text" name="address" id="address" required>
             </div>
             <div>
                 <label for="number">N°</label>

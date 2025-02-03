@@ -9,15 +9,13 @@ class APINodeJSController extends Controller
 {
     public function createClient(Request $request)
     {
-        log::info('request received:', $request->all());
-
         $url = env('NODE_API_URL') . '/client/add';
         $response = Http::post($url, $request->all());
 
         if ($response->successful()) {
-            return $response->json();
+            return redirect()->route('clients.showall')->with('success', 'Client ajouté avec succès');
         } else {
-            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+            return redirect()->route('clients.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
         }
     }
 
