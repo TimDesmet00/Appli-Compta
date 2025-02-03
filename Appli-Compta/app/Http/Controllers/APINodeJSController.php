@@ -15,7 +15,7 @@ class APINodeJSController extends Controller
         if ($response->successful()) {
             return redirect()->route('clients.showall')->with('success', 'Client ajouté avec succès');
         } else {
-            return redirect()->route('clients.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
+            return redirect()->route('client.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
         }
     }
 
