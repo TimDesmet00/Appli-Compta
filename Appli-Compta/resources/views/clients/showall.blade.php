@@ -46,20 +46,20 @@
                 if (data.status === 'success' && data.data && data.data.clients) {
                     const clients = data.data.clients;
                     const tableBody = document.querySelector('#client-table tbody');
-                    tableBody.innerHTML = '';
+                    tableBody.innerHTML = ''; // Clear existing rows
                     clients.forEach(client => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${client.nom}</td>
-                            <td>${client.rue}</td>
-                            <td>${client.numero}</td>
-                            <td>${client.cp}</td>
-                            <td>${client.ville}</td>
-                            <td>${client.pays}</td>
-                            <td>${client.tva}</td>
-                            <td>${client.telephone}</td>
+                            <td>${client.name || client.nom}</td>
+                            <td>${client.address || client.rue}</td>
+                            <td>${client.number || client.numero}</td>
+                            <td>${client.zipcode || client.cp}</td>
+                            <td>${client.city || client.ville}</td>
+                            <td>${client.country || client.pays}</td>
+                            <td>${client.vat || client.tva}</td>
+                            <td>${client.phone || client.telephone}</td>
                             <td>${client.email}</td>
-                            <td>${client.banque}</td>
+                            <td>${client.banque || client.banq}</td>
                             <td>${client.invoices.length}</td>
                         `;
                         tableBody.appendChild(row);
