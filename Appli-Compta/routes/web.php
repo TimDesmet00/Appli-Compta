@@ -20,3 +20,4 @@ Route::get('/', [AccueilController::class, 'index'])->name('accueil.index');
 Route::get('/clients', function (){ return view('clients.showall'); })->name('clients.showall');
 route::get('/client/new', function (){ return view('clients.new');})->name('client.new');
 Route::get('/client/edit/{id}', [APINodeJSController::class, 'editClient'])->name('client.edit');
+route::get('/client/show/{id}', [APINodeJSController::class, 'showClient'])->name('client.show');

@@ -59,6 +59,20 @@ class APINodeJSController extends Controller
         }
     }
 
+    public function showClient($id)
+    {
+        $cleanId = ltrim($id, '-');
+        $clientResponse = $this->getClientById($cleanId);
+
+        if ($clientResponse->status() === 200) {
+            $clientData = $clientResponse->json();
+            $client = $clientData['data']['client'];
+            return view('clients.show', compact('client'));
+        } else {
+            return redirect()->route('clients.showall')->with('error', 'Erreur lors de la récupération des données du client');
+        }
+    }
+
     public function editClient($id)
     {
         $cleanId = ltrim($id, '-');
