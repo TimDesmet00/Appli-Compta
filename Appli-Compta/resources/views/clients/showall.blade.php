@@ -31,7 +31,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         fetch('/api/client/getall')
             .then(response => {
-                console.log('Response:', response); // Log the response object
+                //console.log('Response:', response); // Log the response object
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -42,7 +42,7 @@
                 return response.json(); // Get the response as JSON
             })
             .then(data => {
-                console.log('Response data:', data); // Log the response data
+                //console.log('Response data:', data); // Log the response data
                 if (data.status === 'success' && data.data && data.data.clients) {
                     const clients = data.data.clients;
                     const tableBody = document.querySelector('#client-table tbody');
@@ -62,6 +62,10 @@
                             <td>${client.banque || client.banq}</td>
                             <td>${client.invoices.length}</td>
                         `;
+                        row.addEventListener('click', () => {
+                            window.location.href = `/client/edit/-${client._id}`;
+                            console.log('Client:', client);
+                        });
                         tableBody.appendChild(row);
                     });
                 } else {

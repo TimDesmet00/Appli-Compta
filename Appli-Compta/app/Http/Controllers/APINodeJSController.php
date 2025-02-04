@@ -41,7 +41,7 @@ class APINodeJSController extends Controller
         $response = Http::get($url);
 
         if ($response->successful()) {
-            return $response->json();
+            return $response;
         } else {
             return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
         }
@@ -56,6 +56,22 @@ class APINodeJSController extends Controller
             return $response->json();
         } else {
             return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function editClient($id)
+    {
+        $cleanId = ltrim($id, '-');
+
+        $clientResponse = $this->getClientById($cleanId);
+
+
+        if ($clientResponse->status() === 200) {
+            $clientData = $clientResponse->json();
+            $client = $clientData['data']['client'];
+            return view('clients.edit', compact('client'));
+        } else {
+            return redirect()->route('clients.showall')->with('error', 'Erreur lors de la récupération des données du client');
         }
     }
 
