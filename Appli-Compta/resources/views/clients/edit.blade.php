@@ -5,7 +5,7 @@
         <h1>Modifier un client</h1>
     </div>
     <div class="container">
-        <form action="{{ url('/api/client/update' . $client['_id']) }}" method="post">
+        <form action="{{ url('/api/client/update/' . $client['_id']) }}" method="post">
             @csrf
             @method('PATCH')
             <div class="form-group">
@@ -16,7 +16,7 @@
                 
                 <div>
                     <label for="vat">TVA</label>
-                    <input type="text" name="vat" id="vat" value="{{ $client['vat'] ?? $client['tva'] }}">
+                    <input type="text" name="vat" id="vat" value="{{ $client['vat'] ?? $client['tva'] ?? 'Non fourni' }}" required>
                 </div>
             </div>
             
@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <label for="banq">Banque</label>
-                    <input type="text" name="banq" id="banq" value="{{ $client['banq'] ?? $client['banque'] }}" >
+                    <input type="text" name="banq" id="banq" value="{{ $client['banq'] ?? $client['banque'] ?? 'Non fourni' }}" >
                 </div>
             </div>
             <div class="btn-pos">

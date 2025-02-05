@@ -53,9 +53,9 @@ class APINodeJSController extends Controller
         $response = Http::patch($url, $request->all());
 
         if ($response->successful()) {
-            return $response->json();
+            return redirect()->route('clients.showall')->with('success', 'Client modifier avec succès');
         } else {
-            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+            return redirect()->route('client.edit', ['id' => $id])->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
         }
     }
 

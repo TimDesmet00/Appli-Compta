@@ -11,10 +11,10 @@
     <p>Code postal: {{ $client['zipcode'] ?? $client['cp'] }}</p>
     <p>Ville: {{ $client['city'] ?? $client['ville'] }}</p>
     <p>Pays: {{ $client['country'] ?? $client['pays'] }}</p>
-    <p>TVA: {{ $client['vat'] ?? $client['tva'] }}</p>
+    <p>TVA: {{ $client['vat'] ?? $client['tva'] ?? 'Non fourni' }}</p>
     <p>Téléphone: {{ $client['phone'] ?? $client['telephone'] }}</p>
     <p>Email: {{ $client['email'] }}</p>
-    <p>Banque: {{ $client['banque'] ?? $client['banq'] }}</p>
+    <p>Banque: {{ $client['banque'] ?? $client['banq'] ?? 'Non fourni' }}</p>
     <p>Factures: {{ count($client['invoices']) }}</p>
     <div class="btn-pos">
         <button class="btn" onclick="location.href='{{ route('client.edit', ['id' => $client['_id']]) }}'">Modifier</button>
