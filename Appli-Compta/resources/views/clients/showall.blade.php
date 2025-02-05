@@ -31,7 +31,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         fetch('/api/client/getall')
             .then(response => {
-                //console.log('Response:', response); // Log the response object
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -39,27 +38,26 @@
                 if (!contentType || !contentType.includes('application/json')) {
                     throw new TypeError('Response is not JSON');
                 }
-                return response.json(); // Get the response as JSON
+                return response.json();
             })
             .then(data => {
-                //console.log('Response data:', data); // Log the response data
                 if (data.status === 'success' && data.data && data.data.clients) {
                     const clients = data.data.clients;
                     const tableBody = document.querySelector('#client-table tbody');
-                    tableBody.innerHTML = ''; // Clear existing rows
+                    tableBody.innerHTML = '';
                     clients.forEach(client => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${client.name || client.nom}</td>
-                            <td>${client.address || client.rue}</td>
-                            <td>${client.number || client.numero}</td>
-                            <td>${client.zipcode || client.cp}</td>
-                            <td>${client.city || client.ville}</td>
-                            <td>${client.country || client.pays}</td>
-                            <td>${client.vat || client.tva}</td>
-                            <td>${client.phone || client.telephone}</td>
+                            <td>${client.name}</td>
+                            <td>${client.address}</td>
+                            <td>${client.number}</td>
+                            <td>${client.zipcode}</td>
+                            <td>${client.city}</td>
+                            <td>${client.country}</td>
+                            <td>${client.vat}</td>
+                            <td>${client.phone}</td>
                             <td>${client.email}</td>
-                            <td>${client.banque || client.banq}</td>
+                            <td>${client.banque}</td>
                             <td>${client.invoices.length}</td>
                         `;
                         row.addEventListener('click', () => {

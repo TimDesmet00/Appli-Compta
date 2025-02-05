@@ -11,44 +11,44 @@
             <div class="form-group">
                 <div>
                     <label for="name">Nom</label>
-                    <input type="text" name="name" id="name" value="{{ $client['name'] ?? $client['nom'] }}" required>
+                    <input type="text" name="name" id="name" value="{{ $client['name'] }}" required>
                 </div>
                 
                 <div>
                     <label for="vat">TVA</label>
-                    <input type="text" name="vat" id="vat" value="{{ $client['vat'] ?? $client['tva'] ?? 'Non fourni' }}" required>
+                    <input type="text" name="vat" id="vat" value="{{ $client['vat'] ?? 'Non fourni' }}" required>
                 </div>
             </div>
             
             <div class="form-group">
                 <div>
                     <label for="address">Rue</label>
-                    <input type="text" name="address" id="address" value="{{ $client['address'] ?? $client['rue'] }}" required>
+                    <input type="text" name="address" id="address" value="{{ $client['address'] }}" required>
                 </div>
                 <div>
                     <label for="number">N°</label>
-                    <input type="text" name="number" id="number" value="{{ $client['number'] ?? $client['numero'] }}" required>
+                    <input type="text" name="number" id="number" value="{{ $client['number'] }}" required>
                 </div>
                 <div>
                     <label for="zipcode">C.P.</label>
-                    <input type="text" name="zipcode" id="zipcode" value="{{ $client['zipcode'] ?? $client['cp'] }}" required>
+                    <input type="text" name="zipcode" id="zipcode" value="{{ $client['zipcode'] }}" required>
                 </div>
             </div>
             
             <div class="form-group">
                 <div>
                     <label for="city">Ville</label>
-                    <input type="text" name="city" id="city" value="{{ $client['city'] ?? $client['ville'] }}" required>
+                    <input type="text" name="city" id="city" value="{{ $client['city'] }}" required>
                 </div>
                 <div>
                     <label for="country">Pays</label>
-                    <input type="text" name="country" id="country" value="{{ $client['country'] ?? $client['pays'] }}" required>
+                    <input type="text" name="country" id="country" value="{{ $client['country'] }}" required>
                 </div>
             </div>
             <div class="form-group">
                 <div>
                     <label for="phone">Tel</label>
-                    <input type="text" name="phone" id="phone" value="{{ $client['phone'] ?? $client['telephone'] }}" required>
+                    <input type="text" name="phone" id="phone" value="{{ $client['phone'] }}" required>
                 </div>
                 <div>
                     <label for="email">Mail</label>
@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <label for="banq">Banque</label>
-                    <input type="text" name="banq" id="banq" value="{{ $client['banq'] ?? $client['banque'] ?? 'Non fourni' }}" >
+                    <input type="text" name="banq" id="banq" value="{{ $client['banq'] ?? 'Non fourni' }}" >
                 </div>
             </div>
             <div class="btn-pos">
