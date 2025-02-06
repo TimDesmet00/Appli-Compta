@@ -162,4 +162,53 @@ class APINodeJSController extends Controller
             return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
         }
     }
+
+    public function updateInvoice(Request $request, $id) {
+        $url = env('NODE_API_URL') . "/facture/update/{$id}";
+        $response = Http::patch($url, $request->all());
+
+        if ($response->successful()) {
+            return redirect()->route('factures.showall')->with('success', 'Facture modifiée avec succès');
+        } else {
+            return redirect()->route('factures.edit', ['id' => $id])->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
+        }
+    }
+
+    public function showInvoice($id) {
+        $cleanId = ltrim($id, '-');
+        $invoiceResponse = $this->getInvoiceById($cleanId);
+
+        if ($invoiceResponse->status() === 200) {
+            $invoiceData = $invoiceResponse->json();
+            $invoice = $invoiceData['data']['invoice'];
+            return view('invoices.show', compact('invoice'));
+        } else {
+            return redirect()->route('factures.showall')->with('error', 'Erreur lors de la récupération des données de la facture');
+        }
+    }
+
+    public function editInvoice($id) {
+        $cleanId = ltrim($id, '-');
+
+        $invoiceResponse = $this->getInvoiceById($cleanId);
+
+        if ($invoiceResponse->status() === 200) {
+            $invoiceData = $invoiceResponse->json();
+            $invoice = $invoiceData['data']['invoice'];
+            return view('invoices.edit', compact('invoice'));
+        } else {
+            return redirect()->route('factures.showall')->with('error', 'Erreur lors de la récupération des données de la facture');
+        }
+    }
+
+    public function deleteInvoice($id) {
+        $url = env('NODE_API_URL') . "/facture/delete/{$id}";
+        $response = Http::delete($url);
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
 }
