@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Log;
 
 class APINodeJSController extends Controller
 {
+    //Controller pour les clients
+
     public function createClient(Request $request)
     {
         $url = env('NODE_API_URL') . '/client/add';
@@ -96,6 +98,66 @@ class APINodeJSController extends Controller
 
         if ($response->successful()) {
             return $response->json();
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    //controlleur pour les factures
+
+    public function createInvoice(Request $request) {
+        $url = env('NODE_API_URL') . '/facture/add';
+        $response = Http::post($url, $request->all());
+
+        if (response->successful()) {
+            return redirect()->route('factures.showall')->with('success', 'Facture ajoutée avec succès');
+        } else {
+            return redirect()->route('factures.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
+        }
+    }
+
+    public function getAllInvoices() {
+        $url = env('NODE_API_URL') . '/facture/getall';
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $decodedResponse = json_decode($response->body(), true);
+            return response()->json($decodedResponse);
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function getInvoiceById($id) {
+        $url = env('NODE_API_URL') . "/facture/getone/{$id}";
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            return $response;
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function getAllByClient($id) {
+        $url = env('NODE_API_URL') . "/facture/getbyclient/{$id}";
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $decodedResponse = json_decode($response->body(), true);
+            return response()->json($decodedResponse);
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function getAllByUser($id) {
+        $url = env('NODE_API_URL') . "/facture/getbyuser/{$id}";
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $decodedResponse = json_decode($response->body(), true);
+            return response()->json($decodedResponse);
         } else {
             return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
         }
