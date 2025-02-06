@@ -116,6 +116,18 @@ class APINodeJSController extends Controller
         }
     }
 
+    public function createInvoiceForm(){
+        $url = env('NODE_API_URL') . '/client/getall';
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $clients = $response->json()['data']['clients'];
+            return view('factures.new', compact('clients'));
+        } else {
+            return redirect()->route('factures.index')->with('error', 'Erreur lors de la récupération des clients');
+        }
+    }
+
     public function getAllInvoices() {
         $url = env('NODE_API_URL') . '/facture/getall';
         $response = Http::get($url);
