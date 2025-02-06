@@ -1,0 +1,30 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: space-around;
+    .group{
+        font-size: 1.2em;
+        color: blueviolet;
+        display: flex;
+        // justify-content: space-around;
+        margin: 1em;
+        span{
+            margin: 0 1em;
+        }
+        table{
+            margin: auto;
+            width: 90%;
+            border-collapse: collapse;
+        
+            th,td {
+                border: 2px solid darkred;
+                color: blueviolet
+            }
+        
+            th {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            }
+        }
+    }
+}
