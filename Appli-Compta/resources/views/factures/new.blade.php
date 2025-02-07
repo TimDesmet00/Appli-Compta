@@ -20,7 +20,7 @@
                     <label for="client">Client</label>
                     <select name="client" id="client">
                         @foreach ($clients as $client)
-                            <option value="{{ $client->id }}" @if ($client->id === $facture->client_id) selected @endif>{{ $client->name }}</option>
+                        <option value="{{ $client['_id'] }}">{{ $client['name'] ?? $client['nom'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -33,10 +33,12 @@
             
             </div>
             <div class="form-group"></div>
-            <div class="form-group"></div>
+            <div class="form-group">
+                <button type="submit">Enregistrer</button>
+            </div>
         </div>
         
-        <button type="submit">Enregistrer</button>
+        
     </form>
 
 @endsection

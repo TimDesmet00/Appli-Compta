@@ -163,7 +163,7 @@ class APINodeJSController extends Controller
         }
     }
 
-    public function getAllByUser($id) {
+    public function getAllByUsociety($id) {
         $url = env('NODE_API_URL') . "/facture/getbyuser/{$id}";
         $response = Http::get($url);
 
