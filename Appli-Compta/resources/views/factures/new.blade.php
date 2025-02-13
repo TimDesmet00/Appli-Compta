@@ -57,7 +57,7 @@
                             <th><label for="vat">TVA%</label></th>
                             <th><label for="totalHTVARaw">Total HTVA</label></th>
                             <th><label for="totalTVARaw">Total TVA</label></th>
-                            <th></th>
+                            <th>Total TTC</th>
                         </tr>
                     </thead>
                     <tbody id="invoice-items">
@@ -73,9 +73,18 @@
                                     <option value="21">21%</option>
                                 </select>
                             </td>
-                            <td><input type="number" name="totalHTVARaw[]" id="totalHTVARaw" readonly></td>
-                            <td><input type="number" name="totalTVARaw[]" id="totalTVARaw" readonly></td>
+                            <td><input type="number" name="totalHTVARaw[]" id="totalHTVARaw" oninput="totalHTVA()" readonly></td>
+                            <td><input type="number" name="totalTVARaw[]" id="totalTVARaw" oninput="totalTVA()" readonly></td>
                             <td><button type="button" onclick="addRow()">+</button></td>
+                        </tr>
+                        
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td><input type="number" name="totalHTVA" id="totalHTVA" oninput="totalTTC()" readonly></td>
+                            <td><input type="number" name="totalTVA" id="totalTVA" oninput="totalTTC()" readonly></td>
+                            <td><input type="number" name="totalTTC" id="totalTTC" readonly></td>
                         </tr>
                     </tbody>
                 </table>
@@ -98,6 +107,7 @@
                 var totalHTVARaw = quantite * pu;
                 row.querySelector('#totalHTVARaw').value = totalHTVARaw;
             });
+            calculateTotalHTVA();
         }
 
         function calculateTotalTVARaw() {
@@ -108,6 +118,7 @@
                 var totalTVARaw = totalHTVARaw * vat / 100;
                 row.querySelector('#totalTVARaw').value = totalTVARaw;
             });
+            calculateTotalTva();
         }
 
         function addRow() {
@@ -115,6 +126,35 @@
             var newRow = table.querySelector('.invoice-item').cloneNode(true);
             newRow.querySelectorAll('input').forEach(input => input.value = '');
             table.appendChild(newRow);
+        }
+
+        function calculateTotalHTVA() {
+            var rows = document.querySelectorAll('.invoice-item');
+            var totalHTVA = 0;
+            rows.forEach(function(row) {
+                totalHTVA += parseFloat(row.querySelector('#totalHTVARaw').value);
+            });
+            document.getElementById('totalHTVA').value = totalHTVA;
+
+            calculateTotalTTC();
+        }
+
+        function calculateTotalTva() {
+            var rows = document.querySelectorAll('.invoice-item');
+            var totalTVA = 0;
+            rows.forEach(function(row) {
+                totalTVA += parseFloat(row.querySelector('#totalTVARaw').value);
+            });
+            document.getElementById('totalTVA').value = totalTVA;
+
+            calculateTotalTTC();
+        }
+
+        function calculateTotalTTC() {
+            var totalHTVA = parseFloat(document.getElementById('totalHTVA').value);
+            var totalTVA = parseFloat(document.getElementById('totalTVA').value);
+            var totalTTC = totalHTVA + totalTVA;
+            document.getElementById('totalTTC').value = totalTTC;
         }
     </script>
 @endsection
