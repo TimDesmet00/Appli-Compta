@@ -120,9 +120,13 @@ class APINodeJSController extends Controller
         $url = env('NODE_API_URL') . '/client/getall';
         $response = Http::get($url);
 
+        $societyUrl = env('NODE_API_URL') . '/society/getall';
+        $societyResponse = Http::get($societyUrl);
+
         if ($response->successful()) {
             $clients = $response->json()['data']['clients'];
-            return view('factures.new', compact('clients'));
+            $societies = $societyResponse->json()['data']['societies'];
+            return view('factures.new', compact('clients', 'societies'));
         } else {
             return redirect()->route('factures.index')->with('error', 'Erreur lors de la récupération des clients');
         }

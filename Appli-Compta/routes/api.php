@@ -33,3 +33,11 @@ Route::get('/facture/getbyclient/{id}', [APINodeJSController::class, 'getFacture
 Route::get('/facture/getbyuser/{id}', [APINodeJSController::class, 'getFactureByUser']);
 Route::patch('/facture/update/{id}', [APINodeJSController::class, 'updateFacture']);
 Route::delete('/facture/delete/{id}', [APINodeJSController::class, 'deleteFacture']);
+
+// Ajouter une route pour appeler l'API Node.js society
+
+Route::post('/society/add', [APINodeJSController::class, 'createSociety']);
+Route::get('/society/getall', [APINodeJSController::class, 'getAllSocieties']);
+Route::get('/society/getone/{id}', [APINodeJSController::class, 'getSocietyById']);
+Route::patch('/society/update/{id}', [APINodeJSController::class, 'updateSociety']);
+Route::delete('/society/delete/{id}', [APINodeJSController::class, 'deleteSociety']);
