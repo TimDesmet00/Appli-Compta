@@ -17,10 +17,20 @@
             </div>
             <div class="form-group">
                 <div>
+                    <label for="society">Société</label>
+                    <select name="society" id="society">
+                        @foreach ($societies as $society)
+                        <option value="{{ $society['_id'] }}">{{ $society['name'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
                     <label for="client">Client</label>
                     <select name="client" id="client">
                         @foreach ($clients as $client)
-                        <option value="{{ $client['_id'] }}">{{ $client['name'] ?? $client['nom'] }}</option>
+                        <option value="{{ $client['_id'] }}">{{ $client['name'] }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -109,7 +109,7 @@ class APINodeJSController extends Controller
         $url = env('NODE_API_URL') . '/facture/add';
         $response = Http::post($url, $request->all());
 
-        if (response->successful()) {
+        if ($response->successful()) {
             return redirect()->route('factures.showall')->with('success', 'Facture ajoutée avec succès');
         } else {
             return redirect()->route('factures.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
@@ -221,6 +221,19 @@ class APINodeJSController extends Controller
             return $response->json();
         } else {
             return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    // Controller pour les Sociétés
+
+    public function createSociety(Request $request) {
+        $url = env('NODE_API_URL') . '/society/add';
+        $response = Http::post($url, $request->all());
+
+        if ($response->successful()) {
+            return redirect()->route('societies.showall')->with('success', 'Société ajoutée avec succès');
+        } else {
+            return redirect()->route('societies.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
         }
     }
 }
