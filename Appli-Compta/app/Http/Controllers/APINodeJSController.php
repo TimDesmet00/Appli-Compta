@@ -236,4 +236,80 @@ class APINodeJSController extends Controller
             return redirect()->route('societies.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
         }
     }
+
+    public function getAllSocieties() {
+        $url = env('NODE_API_URL') . '/society/getall';
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $decodedResponse = json_decode($response->body(), true);
+            return response()->json($decodedResponse);
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function getSocietyById($id) {
+        $url = env('NODE_API_URL') . "/society/getone/{$id}";
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            return $response;
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+    public function updateSociety(Request $request, $id) {
+        $url = env('NODE_API_URL') . "/society/update/{$id}";
+        $response = Http::patch($url, $request->all());
+
+        if ($response->successful()) {
+            return redirect()->route('societies.showall')->with('success', 'Société modifiée avec succès');
+        } else {
+            return redirect()->route('societies.edit', ['id' => $id])->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
+        }
+    }
+
+    public function showSociety($id) {
+        $cleanId = ltrim($id, '-');
+        $societyResponse = $this->getSocietyById($cleanId);
+
+        if ($societyResponse->status() === 200) {
+            $societyData = $societyResponse->json();
+            $society = $societyData['data']['society'];
+            return view('societies.show', compact('society'));
+        } else {
+            return redirect()->route('societies.showall')->with('error', 'Erreur lors de la récupération des données de la société');
+        }
+    }
+
+    public function editSociety($id) {
+        $cleanId = ltrim($id, '-');
+
+        $societyResponse = $this->getSocietyById($cleanId);
+
+        if ($societyResponse->status() === 200) {
+            $societyData = $societyResponse->json();
+            $society = $societyData['data']['society'];
+            return view('societies.edit', compact('society'));
+        } else {
+            return redirect()->route('societies.showall')->with('error', 'Erreur lors de la récupération des données de la société');
+        }
+    }
+
+    public function deleteSociety($id) {
+        $url = env('NODE_API_URL') . "/society/delete/{$id}";
+        $response = Http::delete($url);
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            return response()->json(['error' => 'Erreur lors de l\'appel à l\'API Node.js'], 500);
+        }
+    }
+
+
+
+
 }
