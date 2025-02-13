@@ -5,6 +5,7 @@
     <form action="{{ url('/api/facture/add') }}" method="post">
         @csrf
         <div class="container">
+
             <div class="form-group">
                 <div>
                     <label for="number">Numéro</label>
@@ -15,6 +16,7 @@
                     <input type="date" name="date" id="date" required>
                 </div>
             </div>
+
             <div class="form-group">
                 <div>
                     <label for="society">Société</label>
@@ -24,8 +26,6 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
-            <div class="form-group">
                 <div>
                     <label for="client">Client</label>
                     <select name="client" id="client">
@@ -34,21 +34,87 @@
                         @endforeach
                     </select>
                 </div>
+            </div>
+
+            <div class="form-group">
+
+            </div>
+
+            <div class="form-group">
+                
                 <div>
                     <label for="amount">Montant</label>
                     <input type="text" name="amount" id="amount" required>
                 </div>
             </div>
             <div class="form-group">
-            
+                <table>
+                    <thead>
+                        <tr>
+                            <th><label for="desciption">Produit</label></th>
+                            <th><label for="quantite">Quantité</label></th>
+                            <th><label for="pu">Prix unitaire</label></th>
+                            <th><label for="vat">TVA%</label></th>
+                            <th><label for="totalHTVARaw">Total HTVA</label></th>
+                            <th><label for="totalTVARaw">Total TVA</label></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice-items">
+                        <tr class="invoice-item">
+                            <td><input type="text" name="description[]" id="description"></td>
+                            <td><input type="number" name="quantite[]" id="quantite" min="1" oninput="calculateTotalHTVARaw()"></td>
+                            <td><input type="number" name="pu[]" id="pu" min="0" oninput="calculateTotalHTVARaw()"></td>
+                            <td>
+                                <select name="vat[]" id="vat" oninput="calculateTotalTVARaw()">
+                                    <option value="0">0%</option>
+                                    <option value="6">6%</option>
+                                    <option value="12">12%</option>
+                                    <option value="21">21%</option>
+                                </select>
+                            </td>
+                            <td><input type="number" name="totalHTVARaw[]" id="totalHTVARaw" readonly></td>
+                            <td><input type="number" name="totalTVARaw[]" id="totalTVARaw" readonly></td>
+                            <td><button type="button" onclick="addRow()">+</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+
             <div class="form-group"></div>
+
             <div class="form-group">
                 <button type="submit">Enregistrer</button>
             </div>
         </div>
-        
-        
     </form>
 
+    <script>
+        function calculateTotalHTVARaw() {
+            var rows = document.querySelectorAll('.invoice-item');
+            rows.forEach(function(row) {
+                var quantite = row.querySelector('#quantite').value;
+                var pu = row.querySelector('#pu').value;
+                var totalHTVARaw = quantite * pu;
+                row.querySelector('#totalHTVARaw').value = totalHTVARaw;
+            });
+        }
+
+        function calculateTotalTVARaw() {
+            var rows = document.querySelectorAll('.invoice-item');
+            rows.forEach(function(row) {
+                var totalHTVARaw = row.querySelector('#totalHTVARaw').value;
+                var vat = row.querySelector('#vat').value;
+                var totalTVARaw = totalHTVARaw * vat / 100;
+                row.querySelector('#totalTVARaw').value = totalTVARaw;
+            });
+        }
+
+        function addRow() {
+            var table = document.getElementById('invoice-items');
+            var newRow = table.querySelector('.invoice-item').cloneNode(true);
+            newRow.querySelectorAll('input').forEach(input => input.value = '');
+            table.appendChild(newRow);
+        }
+    </script>
 @endsection
