@@ -126,10 +126,28 @@ class APINodeJSController extends Controller
         if ($response->successful()) {
             $clients = $response->json()['data']['clients'];
             $societies = $societyResponse->json()['data']['societies'];
-            return view('factures.new', compact('clients', 'societies'));
+            $invoiceNumber = $this->generateInvoiceNumber();
+            return view('factures.new', compact('clients', 'societies', 'invoiceNumber'));
         } else {
             return redirect()->route('factures.index')->with('error', 'Erreur lors de la récupération des clients');
         }
+    }
+
+    private function generateInvoiceNumber() {
+        $date = date('Ymd');
+        $lastInvoice = DB::table('invoices')
+            ->where('number', 'like', $date . '%')
+            ->orderBy('number', 'desc')
+            ->first();
+
+        if ($lastInvoice) {
+            $lastNumber = (int)substr($lastInvoice->number, 8);
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        return $date . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
     }
 
     public function getAllInvoices() {

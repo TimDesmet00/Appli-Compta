@@ -42,11 +42,8 @@
 
             <div class="form-group">
                 
-                <div>
-                    <label for="amount">Montant</label>
-                    <input type="text" name="amount" id="amount" required>
-                </div>
             </div>
+            
             <div class="form-group">
                 <table>
                     <thead>
