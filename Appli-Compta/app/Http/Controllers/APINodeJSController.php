@@ -135,19 +135,32 @@ class APINodeJSController extends Controller
 
     private function generateInvoiceNumber() {
         $date = date('Ymd');
-        $lastInvoice = DB::table('invoices')
-            ->where('number', 'like', $date . '%')
-            ->orderBy('number', 'desc')
-            ->first();
+        $newNumber = 1;
+        $invoiceNumber = $date . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
 
-        if ($lastInvoice) {
-            $lastNumber = (int)substr($lastInvoice->number, 8);
-            $newNumber = $lastNumber + 1;
+        // Récupérer toutes les factures via l'API Node.js
+        $url = env('NODE_API_URL') . '/facture/getall';
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $responseData = $response->json();
+
+            // Vérifier si la clé 'invoices' existe et n'est pas vide
+            if (isset($responseData['data']['invoices']) && !empty($responseData['data']['invoices'])) {
+                $invoices = $responseData['data']['invoices'];
+
+                // Vérifier si le numéro de facture existe déjà
+                $existingNumbers = array_column($invoices, 'number');
+                while (in_array($invoiceNumber, $existingNumbers)) {
+                    $newNumber++;
+                    $invoiceNumber = $date . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+                }
+            }
         } else {
-            $newNumber = 1;
+            throw new \Exception('Erreur lors de la récupération des factures depuis l\'API Node.js');
         }
 
-        return $date . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+        return $invoiceNumber;
     }
 
     public function getAllInvoices() {

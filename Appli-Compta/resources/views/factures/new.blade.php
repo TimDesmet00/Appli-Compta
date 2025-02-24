@@ -9,7 +9,7 @@
             <div class="form-group">
                 <div>
                     <label for="number">Numéro</label>
-                    <input type="text" name="number" id="number" required>
+                    <input type="text" name="number" id="number" value="{{ $invoiceNumber }}" readonly>
                 </div>
                 <div>
                     <label for="date">Date</label>
