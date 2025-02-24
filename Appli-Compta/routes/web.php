@@ -30,7 +30,7 @@ Route::get('/facture/edit/{id}', [APINodeJSController::class, 'editFacture'])->n
 Route::get('/facture/show/{id}', [APINodeJSController::class, 'showFacture'])->name('facture.show');
 
 // Ajouter une route pour appeler l'API Node.js society
-Route::get('/society', function (){ return view('society.showall'); })->name('societies.showall');
+Route::get('/society', function (){ return view('society.showall'); })->name('society.showall');
 Route::get('/society/new', function (){ return view('society.new'); })->name('society.new');
 Route::get('/society/edit/{id}', [APINodeJSController::class, 'editSociety'])->name('society.edit');
 Route::get('/society/show/{id}', [APINodeJSController::class, 'showSociety'])->name('society.show');

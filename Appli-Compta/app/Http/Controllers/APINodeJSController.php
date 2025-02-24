@@ -266,9 +266,9 @@ class APINodeJSController extends Controller
         $response = Http::post($url, $request->all());
 
         if ($response->successful()) {
-            return redirect()->route('societies.showall')->with('success', 'Société ajoutée avec succès');
+            return redirect()->route('society.showall')->with('success', 'Société ajoutée avec succès');
         } else {
-            return redirect()->route('societies.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
+            return redirect()->route('society.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
         }
     }
 
@@ -300,9 +300,9 @@ class APINodeJSController extends Controller
         $response = Http::patch($url, $request->all());
 
         if ($response->successful()) {
-            return redirect()->route('societies.showall')->with('success', 'Société modifiée avec succès');
+            return redirect()->route('society.showall')->with('success', 'Société modifiée avec succès');
         } else {
-            return redirect()->route('societies.edit', ['id' => $id])->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
+            return redirect()->route('society.edit', ['id' => $id])->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
         }
     }
 
@@ -315,7 +315,7 @@ class APINodeJSController extends Controller
             $society = $societyData['data']['society'];
             return view('societies.show', compact('society'));
         } else {
-            return redirect()->route('societies.showall')->with('error', 'Erreur lors de la récupération des données de la société');
+            return redirect()->route('society.showall')->with('error', 'Erreur lors de la récupération des données de la société');
         }
     }
 

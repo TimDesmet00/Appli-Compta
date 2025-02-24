@@ -30,8 +30,8 @@
 
             <div class="form-group">
                 <div>
-                    <label for="zip">Code postal</label>
-                    <input type="number" name="zip" id="zip" required>
+                    <label for="zipcode">Code postal</label>
+                    <input type="number" name="zipcode" id="zipcode" required>
                 </div>
                 <div>
                     <label for="city">Ville</label>
