@@ -144,7 +144,7 @@ class APINodeJSController extends Controller
 
         if ($response->successful()) {
             $responseData = $response->json();
-
+            log::info('API Response Data:', $responseData);
             // Vérifier si la clé 'invoices' existe et n'est pas vide
             if (isset($responseData['data']['invoices']) && !empty($responseData['data']['invoices'])) {
                 $invoices = $responseData['data']['invoices'];
@@ -157,6 +157,10 @@ class APINodeJSController extends Controller
                 }
             }
         } else {
+            Log::error('Erreur lors de la récupération des factures depuis l\'API Node.js', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
             throw new \Exception('Erreur lors de la récupération des factures depuis l\'API Node.js');
         }
 
