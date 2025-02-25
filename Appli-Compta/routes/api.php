@@ -26,7 +26,7 @@ Route::patch('/client/update/{id}', [APINodeJSController::class, 'updateClient']
 Route::delete('/client/delete/{id}', [APINodeJSController::class, 'deleteClient']);
 
 // Ajouter une route pour appeler l'API Node.js facture
-Route::post('/facture/add', [APINodeJSController::class, 'createFacture']);
+Route::post('/facture/add', [APINodeJSController::class, 'createInvoice']);
 Route::get('/facture/getall', [APINodeJSController::class, 'getAllFactures']);
 Route::get('/facture/getone/{id}', [APINodeJSController::class, 'getFactureById']);
 Route::get('/facture/getbyclient/{id}', [APINodeJSController::class, 'getFactureByClient']);

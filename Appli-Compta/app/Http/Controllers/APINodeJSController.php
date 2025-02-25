@@ -112,7 +112,7 @@ class APINodeJSController extends Controller
         if ($response->successful()) {
             return redirect()->route('factures.showall')->with('success', 'Facture ajoutée avec succès');
         } else {
-            return redirect()->route('factures.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
+            return redirect()->route('facture.new')->with('error', 'Erreur lors de l\'appel à l\'API Node.js');
         }
     }
 
