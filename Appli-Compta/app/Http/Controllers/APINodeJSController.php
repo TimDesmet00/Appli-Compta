@@ -144,13 +144,14 @@ class APINodeJSController extends Controller
 
         if ($response->successful()) {
             $responseData = $response->json();
-            log::info('API Response Data:', $responseData);
-            // Vérifier si la clé 'invoices' existe et n'est pas vide
-            if (isset($responseData['data']['invoices']) && !empty($responseData['data']['invoices'])) {
-                $invoices = $responseData['data']['invoices'];
+            Log::info('API Response Data:', $responseData);
+
+            // Vérifier si la clé 'factures' existe et n'est pas vide
+            if (isset($responseData['data']['factures']) && !empty($responseData['data']['factures'])) {
+                $factures = $responseData['data']['factures'];
 
                 // Vérifier si le numéro de facture existe déjà
-                $existingNumbers = array_column($invoices, 'number');
+                $existingNumbers = array_column($factures, 'number');
                 while (in_array($invoiceNumber, $existingNumbers)) {
                     $newNumber++;
                     $invoiceNumber = $date . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
@@ -164,6 +165,7 @@ class APINodeJSController extends Controller
             throw new \Exception('Erreur lors de la récupération des factures depuis l\'API Node.js');
         }
 
+        Log::info('Generated Invoice Number:', ['invoiceNumber' => $invoiceNumber]);
         return $invoiceNumber;
     }
 
