@@ -40,14 +40,14 @@
                             factures.forEach(facture => {
                                 const row = document.createElement('tr');
                                 row.innerHTML = `
-                                    <td>${facture.client}</td>
-                                    <td>${facture.date}</td>
-                                    <td>${facture.amount}</td>
-                                    <td>${facture.paid}</td>
+                                    <td>${facture.client.name}</td>
+                                    <td>${new Date(facture.date).toLocaleDateString()}</td>
+                                    <td>${facture.totalTTC}</td>
+                                    <td>${facture.paid ? 'Oui' : 'Non'}</td>
                                     <td>
-                                        <button onclick="location.href='/facture/${facture.id}'">Voir</button>
-                                        <button onclick="location.href='/facture/${facture.id}/edit'">Modifier</button>
-                                        <button onclick="location.href='/facture/${facture.id}/delete'">Supprimer</button>
+                                        <button onclick="location.href='/facture/${facture._id}'">Voir</button>
+                                        <button onclick="location.href='/facture/${facture._id}/edit'">Modifier</button>
+                                        <button onclick="location.href='/facture/${facture._id}/delete'">Supprimer</button>
                                     </td>
                                 `;
                                 tableBody.appendChild(row);
