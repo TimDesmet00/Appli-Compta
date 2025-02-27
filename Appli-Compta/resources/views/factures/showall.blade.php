@@ -10,9 +10,11 @@
             <tr>
                 <th>Client</th>
                 <th>Date</th>
-                <th>Montant</th>
+                <th>Total HTVA</th>
+                <th>Total TVA</th>
+                <th>Total TTC</th>
                 <th>Payée</th>
-                <th>Actions</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -42,13 +44,11 @@
                                 row.innerHTML = `
                                     <td>${facture.client.name}</td>
                                     <td>${new Date(facture.date).toLocaleDateString()}</td>
+                                    <td>${facture.totalHTVA}</td>
+                                    <td>${facture.totalTVA}</td>
                                     <td>${facture.totalTTC}</td>
                                     <td>${facture.paid ? 'Oui' : 'Non'}</td>
-                                    <td>
-                                        <button onclick="location.href='/facture/${facture._id}'">Voir</button>
-                                        <button onclick="location.href='/facture/${facture._id}/edit'">Modifier</button>
-                                        <button onclick="location.href='/facture/${facture._id}/delete'">Supprimer</button>
-                                    </td>
+                                    
                                 `;
                                 tableBody.appendChild(row);
                             });
