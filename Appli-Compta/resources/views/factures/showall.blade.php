@@ -5,7 +5,7 @@
     <div class="btn-pos">
         <button class="btn" onclick="location.href='{{ route('facture.new') }}'">nouvelle facture</button>
     </div>
-    <table>
+    <table id="factureTable">
         <thead>
             <tr>
                 <th>Client</th>
