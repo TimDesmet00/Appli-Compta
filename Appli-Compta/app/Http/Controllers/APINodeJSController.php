@@ -27,8 +27,6 @@ class APINodeJSController extends Controller
         $url = env('NODE_API_URL') . '/client/getall';
         $response = Http::get($url);
 
-        Log::info('API Node.js Response:', ['response' => $response->body()]);
-
         if ($response->successful()) {
             $decodedResponse = json_decode($response->body(), true); // Décoder la réponse JSON une fois de plus
             return response()->json($decodedResponse);
@@ -144,8 +142,7 @@ class APINodeJSController extends Controller
 
         if ($response->successful()) {
             $responseData = $response->json();
-            Log::info('API Response Data:', $responseData);
-
+            
             // Vérifier si la clé 'factures' existe et n'est pas vide
             if (isset($responseData['data']['factures']) && !empty($responseData['data']['factures'])) {
                 $factures = $responseData['data']['factures'];
@@ -158,14 +155,10 @@ class APINodeJSController extends Controller
                 }
             }
         } else {
-            Log::error('Erreur lors de la récupération des factures depuis l\'API Node.js', [
-                'status' => $response->status(),
-                'body' => $response->body()
-            ]);
+            
             throw new \Exception('Erreur lors de la récupération des factures depuis l\'API Node.js');
         }
 
-        Log::info('Generated Invoice Number:', ['invoiceNumber' => $invoiceNumber]);
         return $invoiceNumber;
     }
 
@@ -233,8 +226,9 @@ class APINodeJSController extends Controller
 
         if ($invoiceResponse->status() === 200) {
             $invoiceData = $invoiceResponse->json();
-            $invoice = $invoiceData['data']['invoice'];
-            return view('invoices.show', compact('invoice'));
+            $invoice = $invoiceData['data']['facture'];
+            log::info($invoice);
+            return view('factures.show', compact('invoice'));
         } else {
             return redirect()->route('factures.showall')->with('error', 'Erreur lors de la récupération des données de la facture');
         }
