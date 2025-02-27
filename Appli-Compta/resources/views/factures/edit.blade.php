@@ -1,19 +1,21 @@
 @extends ('layout')
 
 @section ('content')
-    <h1>Ajouter la facture</h1>
-    <form action="{{ url('/api/facture/add') }}" method="post">
-        @csrf
-        <div class="container">
-
+    <div>
+        <h1>Modifier une facture</h1>
+    </div>
+    <div class="container">
+        <form action="{{ url('/api/facture/update/' . $facture['_id']) }}" method="post">
+            @csrf
+            @method('PATCH')
             <div class="form-group">
                 <div>
                     <label for="number">Numéro</label>
-                    <input type="text" name="number" id="number" value="{{ $invoiceNumber }}" readonly>
+                    <input type="text" name="number" id="number" value="{{ $facture['number'] }}" readonly>
                 </div>
                 <div>
                     <label for="date">Date</label>
-                    <input type="date" name="date" id="date" required>
+                    <input type="date" name="date" id="date" value="{{ $facture['date'] }}" required>
                 </div>
             </div>
 
@@ -22,7 +24,7 @@
                     <label for="society">Société</label>
                     <select name="society" id="society">
                         @foreach ($societies as $society)
-                        <option value="{{ $society['_id'] }}">{{ $society['name'] }}</option>
+                        <option value="{{ $society['_id'] }}" {{ $facture['society']['_id'] == $society['_id'] ? 'selected' : '' }}>{{ $society['name'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -30,7 +32,7 @@
                     <label for="client">Client</label>
                     <select name="client" id="client">
                         @foreach ($clients as $client)
-                        <option value="{{ $client['_id'] }}">{{ $client['name'] }}</option>
+                        <option value="{{ $client['_id'] }}" {{ $facture['client']['_id'] == $client['_id'] ? 'selected' : '' }}>{{ $client['name'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -40,7 +42,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th><label for="desciption">Produit</label></th>
+                            <th><label for="description">Produit</label></th>
                             <th><label for="quantite">Quantité</label></th>
                             <th><label for="pu">Prix unitaire</label></th>
                             <th><label for="vat">TVA%</label></th>
@@ -49,42 +51,41 @@
                             <th>Total TTC</th>
                         </tr>
                     </thead>
-                    <tbody id="invoice-items">
+                    <tbody class="invoice-items">
+                        @foreach ($facture['raw'] as $item)
                         <tr class="invoice-item">
-                            <td><input type="text" name="description[]" id="description"></td>
-                            <td><input type="number" name="quantite[]" id="quantite" min="1" oninput="calculateTotalHTVARaw()"></td>
-                            <td><input type="number" name="pu[]" id="pu" min="0" oninput="calculateTotalHTVARaw()"></td>
+                            <td><input type="text" name="description[]" id="description" value="{{ $item['description'] }}"></td>
+                            <td><input type="number" name="quantite[]" id="quantite" min="1" value="{{ $item['quantite'] }}" oninput="calculateTotalHTVARaw()"></td>
+                            <td><input type="number" name="pu[]" id="pu" min="0" value="{{ $item['pu'] }}" oninput="calculateTotalHTVARaw()"></td>
                             <td>
                                 <select name="vat[]" id="vat" oninput="calculateTotalTVARaw()">
-                                    <option value="0">0%</option>
-                                    <option value="6">6%</option>
-                                    <option value="12">12%</option>
-                                    <option value="21">21%</option>
+                                    <option value="0" {{ $item['vat'] == 0 ? 'selected' : '' }}>0%</option>
+                                    <option value="6" {{ $item['vat'] == 6 ? 'selected' : '' }}>6%</option>
+                                    <option value="12" {{ $item['vat'] == 12 ? 'selected' : '' }}>12%</option>
+                                    <option value="21" {{ $item['vat'] == 21 ? 'selected' : '' }}>21%</option>
                                 </select>
                             </td>
-                            <td><input type="number" name="totalHTVARaw[]" id="totalHTVARaw" oninput="totalHTVA()" readonly></td>
-                            <td><input type="number" name="totalTVARaw[]" id="totalTVARaw" oninput="totalTVA()" readonly></td>
+                            <td><input type="number" name="totalHTVARaw[]" id="totalHTVARaw" value="{{ $item['totalHTVARaw'] }}" readonly></td>
+                            <td><input type="number" name="totalTVARaw[]" id="totalTVARaw" value="{{ $item['totalTVARaw'] }}" readonly></td>
                             <td><button type="button" onclick="addRow()">+</button></td>
                         </tr>
-                        
+                        @endforeach
                     </tbody>
                     <tbody>
                         <tr>
                             <td colspan="4"></td>
-                            <td><input type="number" name="totalHTVA" id="totalHTVA" oninput="totalTTC()" readonly></td>
-                            <td><input type="number" name="totalTVA" id="totalTVA" oninput="totalTTC()" readonly></td>
-                            <td><input type="number" name="totalTTC" id="totalTTC" readonly></td>
+                            <td><input type="number" name="totalHTVA" id="totalHTVA" value="{{ $facture['totalHTVA'] }}" readonly></td>
+                            <td><input type="number" name="totalTVA" id="totalTVA" value="{{ $facture['totalTVA'] }}" readonly></td>
+                            <td><input type="number" name="totalTTC" id="totalTTC" value="{{ $facture['totalTTC'] }}" readonly></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-            <div class="form-group">
-                <button type="submit" class="btn">Enregistrer</button>
+            <div class="btn-pos">
+                <button class="btn" type="submit">Modifier</button>
             </div>
-        </div>
-    </form>
-
+        </form>
+    </div>
     <script>
         function calculateTotalHTVARaw() {
             var rows = document.querySelectorAll('.invoice-item');
@@ -109,7 +110,7 @@
         }
 
         function addRow() {
-            var table = document.getElementById('invoice-items');
+            var table = document.querySelector('.invoice-items');
             var newRow = table.querySelector('.invoice-item').cloneNode(true);
             newRow.querySelectorAll('input').forEach(input => input.value = '');
             table.appendChild(newRow);

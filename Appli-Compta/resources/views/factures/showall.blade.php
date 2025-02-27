@@ -50,6 +50,9 @@
                                     <td>${facture.paid ? 'Oui' : 'Non'}</td>
                                     
                                 `;
+                                row.addEventListener('click', () => {
+                                    location.href = `/facture/show/${facture._id}`;
+                                });
                                 tableBody.appendChild(row);
                             });
                         }

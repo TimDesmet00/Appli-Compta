@@ -62,7 +62,7 @@
                         `;
                         row.addEventListener('click', () => {
                             window.location.href = `/client/show/${client._id}`;
-                            console.log('Client:', client);
+                            // console.log('Client:', client);
                         });
                         tableBody.appendChild(row);
                     });
