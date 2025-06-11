@@ -12,7 +12,7 @@
             </div>
             <div>
                 <span>Date:</span>
-                <span>{{ $invoice['date'] }}</span>
+                <span>{{ \Carbon\Carbon::parse($invoice['date'])->format('d/m/Y') }}</span>
             </div>
             <div>
                 <span>Société:</span>
@@ -34,10 +34,10 @@
                 <span>Total TTC:</span>
                 <span>{{ $invoice['totalTTC'] }}</span>
             </div>
-            <div>
+            <!-- <div>
                 <span>Payée:</span>
                 <span>{{ isset($invoice['paid']) ? ($invoice['paid'] ? 'Oui' : 'Non') : 'Non' }}</span>
-            </div>
+            </div> -->
         </div>
         <div class="facture-items">
             <table>
